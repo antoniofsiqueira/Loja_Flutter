@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loja_app/tabs/home_tab.dart';
+import 'package:loja_app/screens/home_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.blue,
-          primaryColor: Color.fromARGB(255, 4, 120, 141)),
-          home: HomeTab(),
+          primaryColor: Color.fromARGB(255, 120, 220, 200)),
+      home: HomeScreen(),
     );
   }
 }

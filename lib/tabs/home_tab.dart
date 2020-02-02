@@ -27,6 +27,7 @@ class HomeTab extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 title: const Text("Novidades"),
                 centerTitle: true,
+                
               ),
             ),
             FutureBuilder<QuerySnapshot>(
@@ -53,13 +54,13 @@ class HomeTab extends StatelessWidget {
                     staggeredTiles: snapshot.data.documents.map((doc) {
                       return StaggeredTile.count(doc.data["x"], doc.data["y"]);
                     }).toList(),
-                    children: snapshot.data.documents.map(
-                      (doc){
-                        return FadeInImage.memoryNetwork(placeholder: kTransparentImage, 
+                    children: snapshot.data.documents.map((doc) {
+                      return FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
                         image: doc.data["image"],
-                        fit: BoxFit.cover,);
-                      }
-                    ).toList(),
+                        fit: BoxFit.cover,
+                      );
+                    }).toList(),
                   );
                 }
               },
