@@ -18,4 +18,6 @@ class ProductData{
     sizes = snapshot.data["sizes"];
 
   }
+
+  toResumedMap() {}
 }
