@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loja_app/tabs/home_tab.dart';
-import 'package:loja_app/widgets/custum_drawer.dart';
+import 'package:loja_app/tabs/orders_tab.dart';
+import 'package:loja_app/tabs/places_tab.dart';
 import 'package:loja_app/tabs/products_tab.dart';
+import 'package:loja_app/widgets/cart_button.dart';
+import 'package:loja_app/widgets/custom_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   final _pageController = PageController();
@@ -15,6 +18,7 @@ class HomeScreen extends StatelessWidget {
         Scaffold(
           body: HomeTab(),
           drawer: CustomDrawer(_pageController),
+          floatingActionButton: CartButton(),
         ),
         Scaffold(
           appBar: AppBar(
@@ -23,7 +27,24 @@ class HomeScreen extends StatelessWidget {
           ),
           drawer: CustomDrawer(_pageController),
           body: ProductsTab(),
+          floatingActionButton: CartButton(),
         ),
+        Scaffold(
+          appBar: AppBar(
+            title: Text("Lojas"),
+            centerTitle: true,
+          ),
+          body: PlacesTab(),
+          drawer: CustomDrawer(_pageController),
+        ),
+        Scaffold(
+          appBar: AppBar(
+            title: Text("Meus Pedidos"),
+            centerTitle: true,
+          ),
+          body: OrdersTab(),
+          drawer: CustomDrawer(_pageController),
+        )
       ],
     );
   }

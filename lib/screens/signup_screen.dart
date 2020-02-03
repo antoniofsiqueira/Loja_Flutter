@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:loja_app/models/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -8,7 +10,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
@@ -25,8 +26,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       body: ScopedModelDescendant<UserModel>(
         builder: (context, child, model) {
-          if(model.isLoading)
-          return Center(child: CircularProgressIndicator(),);
+          if (model.isLoading)
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           return Form(
               key: _formKey,
               child: ListView(
@@ -63,12 +66,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return "Senha inválida";
                     },
                   ),
+                  SizedBox(
+                    height: 16.0,
+                  ),
                   TextFormField(
                     controller: _addressController,
                     decoration: InputDecoration(hintText: "Endereço"),
                     validator: (text) {
-                      if (text.isEmpty || text.length < 6)
-                        return "Endereço inválido";
+                      if (text.isEmpty) return "Endereço inválido";
                     },
                   ),
                   SizedBox(
@@ -79,22 +84,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: RaisedButton(
                       onPressed: () {
                         FocusScopeNode currentFocus = FocusScope.of(context);
-                        if (!currentFocus.hasPrimaryFocus) { currentFocus.unfocus(); }
-                        
+                        if (!currentFocus.hasPrimaryFocus) {
+                          currentFocus.unfocus();
+                        }
+
                         if (_formKey.currentState.validate()) {
                           Map<String, dynamic> userData = {
                             "name": _nameController.text.trim(),
                             "email": _emailController.text.trim(),
                             "address": _addressController.text.trim()
-
                           };
 
                           model.signUp(
-                            userData: userData, 
-                            pass: _passController.text, 
-                            onSuccess: _onSuccess,
-                             onFail: _onFail
-                             );
+                              userData: userData,
+                              pass: _passController.text,
+                              onSuccess: _onSuccess,
+                              onFail: _onFail);
                         }
                       },
                       child: Text(
@@ -113,25 +118,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-  void _onSuccess(){
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(content: Text("Usuário criado com sucesso!"),
+
+  void _onSuccess() {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text("Usuário criado com sucesso!"),
       backgroundColor: Theme.of(context).primaryColor,
-      duration: Duration(seconds: 2),)
-    );
-    Future.delayed(Duration(seconds: 2)).then((_){
+      duration: Duration(seconds: 2),
+    ));
+    Future.delayed(Duration(seconds: 2)).then((_) {
       Navigator.of(context).pop();
     });
-
-
   }
-  void _onFail(){
-    
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(content: Text("Falha ao criar o usuário!"),
+
+  void _onFail() {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text("Falha ao criar o usuário!"),
       backgroundColor: Colors.redAccent,
-      duration: Duration(seconds: 2),)
-    );
+      duration: Duration(seconds: 2),
+    ));
   }
 }
-

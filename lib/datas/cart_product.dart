@@ -19,7 +19,7 @@ class CartProduct{
 
   }
 
-  Map<String, dynamic> todMap(){
+  Map<String, dynamic> toMap(){
     return{
       "category": category,
       "pid": pid,

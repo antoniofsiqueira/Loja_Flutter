@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class UserModel extends Model {
@@ -38,6 +38,7 @@ class UserModel extends Model {
       isLoading = false;
       notifyListeners();
     }).catchError((e) {
+      print("Erro aqui--->"+e);
       onFail();
       isLoading = false;
       notifyListeners();
@@ -48,10 +49,12 @@ class UserModel extends Model {
       {@required String email,
       @required String pass,
       @required VoidCallback onSuccess,
-      @required VoidCallback onFail}) {
+      @required VoidCallback onFail}) async {
+    isLoading = true;
+    notifyListeners();
     _auth
         .createUserWithEmailAndPassword(
-            email: userData["email"], password: pass)
+            email: email, password: pass)
         .then((result) async {
       firebaseUser = result.user;
       await _loadCurrentUser();
